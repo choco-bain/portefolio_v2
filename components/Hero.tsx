@@ -1,6 +1,11 @@
 import { cv } from '../data/cv'
+import { useRouter } from 'next/router'
 
 export default function Hero() {
+  const { basePath } = useRouter()
+  const photoPath = cv.photo?.startsWith('/') ? `${basePath}${cv.photo}` : cv.photo
+  const cvPath = `${basePath}/cv.pdf`
+
   return (
     <section id="home" className="relative min-h-screen overflow-hidden pt-20 pb-12">
       {/* Animated blobs background */}
@@ -33,7 +38,7 @@ export default function Hero() {
                 Me contacter
               </button>
               <a
-                href="/cv.pdf"
+                href={cvPath}
                 download
                 className="btn-secondary flex items-center gap-2"
               >
@@ -64,7 +69,7 @@ export default function Hero() {
               {/* Image container */}
               <div className="relative w-full h-full rounded-3xl overflow-hidden border-2 border-blue-500/30 bg-gradient-to-br from-blue-900/50 to-purple-900/50">
                 <img
-                  src={cv.photo || 'https://via.placeholder.com/320'}
+                  src={photoPath || 'https://via.placeholder.com/320'}
                   alt={cv.name}
                   className="w-full h-full object-cover"
                 />
